@@ -25,7 +25,7 @@ marketplace catalog and purchase flow.
 - React 19 and TypeScript
 - Tailwind CSS
 - Prisma ORM
-- SQLite
+- PostgreSQL (Neon-compatible)
 - Lucide React
 
 ## Project structure
@@ -57,10 +57,10 @@ public/images/                  Local product and variant photography
    npm install
    ```
 
-2. Create or update `.env` with a SQLite database URL:
+2. Create or update `.env` with your Neon PostgreSQL connection string:
 
    ```env
-   DATABASE_URL="file:./dev.db"
+   DATABASE_URL="postgresql://USER:PASSWORD@HOST/DB?sslmode=require"
    ```
 
 3. Generate the Prisma client:
@@ -69,16 +69,16 @@ public/images/                  Local product and variant photography
    npx prisma generate
    ```
 
-4. Create/update the local database:
+4. Create/update the database schema:
 
    ```bash
-   npx prisma db push
+   npm run db:push
    ```
 
 5. Seed the six-product marketplace catalog:
 
    ```bash
-   npx tsx prisma/seed.ts
+   npm run db:seed
    ```
 
 6. Start the development server:
@@ -89,8 +89,8 @@ public/images/                  Local product and variant photography
 
 7. Open [http://localhost:3000](http://localhost:3000).
 
-The local SQLite database is intentionally ignored by Git. Run the database
-setup and seed commands again after cloning the repository.
+Run the database setup and seed commands again after cloning the repository or
+when connecting a new Neon database.
 
 ## Available scripts
 
@@ -196,5 +196,4 @@ npm run lint
   eligibility underwriting, and order fulfillment are not connected to live
   financial services.
 - EMI and cashback values are seeded demonstration data.
-- The local SQLite database is generated during setup and should not be
-  committed.
+- Neon database credentials must be configured as Vercel environment variables.
