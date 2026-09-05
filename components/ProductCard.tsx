@@ -15,11 +15,11 @@ export type ProductCardData = {
 export function ProductCard({ product }: { product: ProductCardData }) {
   return (
     <Link href={`/marketplace/products/${product.slug}`} className="rounded-2xl bg-white p-3 shadow-[0_2px_14px_rgba(17,24,39,0.06)]">
-      <div className="mb-3 overflow-hidden rounded-xl bg-gray-50 p-3">
+      <div className="mb-3 overflow-hidden rounded-xl bg-[#F8F8FA] p-2">
         <img
           src={product.thumbnail}
           alt={product.name}
-          className="aspect-square w-full object-contain"
+          className="aspect-square w-full object-contain mix-blend-multiply"
           onError={(event) => {
             const target = event.currentTarget as HTMLImageElement;
             target.src = `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420"><rect width="420" height="420" fill="#F3F4F6"/><rect x="24" y="24" width="372" height="372" rx="24" fill="#EDE9FE"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28" fill="#6D28D9" font-family="Arial, sans-serif" font-weight="700">${product.name}</text></svg>`)}`;

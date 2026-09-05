@@ -17,42 +17,46 @@ const offers = [
     title: "Shop Big at Croma for Everyday Electronics",
     bullets: ["Gadgets on easy EMIs"],
     gradient: "bg-[linear-gradient(120deg,#0F172A_0%,#1E293B_55%,#164E63_100%)]",
+    image: "/images/macbook-air-m4-midnight.jpg",
   },
   {
     eyebrow: "TRAVEL OFFERS",
     title: "Book flights and stays with flexible EMIs",
     bullets: ["Zero credit pull", "Flexible plans"],
     gradient: "bg-[linear-gradient(135deg,#3B0764_0%,#7C3AED_50%,#4F46E5_100%)]",
+    image: "/images/iphone-17-pro-blue.jpg",
   },
   {
     eyebrow: "HOME NEEDS",
     title: "Upgrade appliances without stretching your budget",
     bullets: ["Fast approvals", "No charges"],
     gradient: "bg-[linear-gradient(135deg,#1E293B_0%,#334155_50%,#0F766E_100%)]",
+    image: "/images/dell-xps-13-graphite.jpg",
   },
 ];
 
 const brands = [
-  { name: "Apple", logo: "/brands/apple.png" },
-  { name: "Samsung", logo: "/brands/samsung.png" },
-  { name: "Amazon", logo: "/brands/amazon.png" },
-  { name: "Flipkart", logo: "/brands/flipkart.png" },
-  { name: "Myntra", logo: "/brands/myntra.png" },
-  { name: "MakeMyTrip", logo: "/brands/makemytrip.png" },
-  { name: "Air India", logo: "/brands/airindia.png" },
-  { name: "Croma", logo: "/brands/croma.png" },
-  { name: "Paytm", logo: "/brands/paytm.png" },
-  { name: "Google", logo: "/brands/google.png" },
-  { name: "OnePlus", logo: "/brands/oneplus.png" },
-  { name: "Nykaa", logo: "/brands/nykaa.png" },
-  { name: "Nike", logo: "/brands/nike.png" },
+  { name: "Apple", logo: "/brands/apple.svg" },
+  { name: "Samsung", logo: "/brands/samsung.svg" },
+  { name: "Amazon", logo: "/brands/amazon.svg" },
+  { name: "Flipkart", logo: "/brands/flipkart.svg" },
+  { name: "Myntra", logo: "/brands/myntra.svg" },
+  { name: "MakeMyTrip", logo: "/brands/makemytrip.svg" },
+  { name: "Air India", logo: "/brands/airindia.svg" },
+  { name: "Croma", logo: "/brands/croma.svg" },
+  { name: "Paytm", logo: "/brands/paytm.svg" },
+  { name: "Google", logo: "/brands/google.svg" },
+  { name: "OnePlus", logo: "/brands/oneplus.svg" },
+  { name: "Nykaa", logo: "/brands/nykaa.svg" },
+  { name: "Nike", logo: "/brands/nike.svg" },
 ];
 
 export default function HomePage() {
   return (
-    <main className="space-y-6 px-4 pb-36 pt-4">
-      <section className="relative overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#4C1D95_0%,#6D28D9_50%,#7C3AED_100%)] p-6">
+    <main className="space-y-6 px-4 pb-36 pt-6">
+      <section className="relative min-h-[266px] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#4C1D95_0%,#6D28D9_50%,#7C3AED_100%)] p-6">
         <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-white/5 blur-2xl" />
+        <img src="/images/iphone-17-pro-orange.jpg" alt="" aria-hidden="true" className="absolute -right-16 bottom-[-35px] h-52 w-64 rotate-[-8deg] object-cover object-top opacity-90 mix-blend-screen" />
         <div className="relative z-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/70">GET STARTED</p>
           <h1 className="mt-4 max-w-[200px] text-[24px] font-bold leading-[1.2] text-white">
@@ -82,7 +86,9 @@ export default function HomePage() {
         <div className="overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex snap-x gap-3">
             {offers.map((offer) => (
-              <div key={offer.title} className={`min-w-full snap-center rounded-[24px] p-5 ${offer.gradient}`}>
+              <div key={offer.title} className={`relative min-h-[250px] min-w-full snap-center overflow-hidden rounded-[24px] p-5 ${offer.gradient}`}>
+                <img src={offer.image} alt="" aria-hidden="true" className="absolute bottom-0 right-0 h-44 w-56 object-cover object-center opacity-80 mix-blend-screen" />
+                <div className="relative z-10">
                 <div className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-accent-orange">{offer.eyebrow}</div>
                 <h3 className="max-w-[240px] text-[22px] font-bold leading-[1.25] text-white">{offer.title}</h3>
                 <ul className="mt-4 space-y-2 text-[13px] text-white/90">
@@ -104,6 +110,7 @@ export default function HomePage() {
                   <div className="flex items-end gap-2">
                     <div className="h-20 w-16 rounded-[18px] bg-white/10" />
                     <div className="h-12 w-12 rounded-full bg-white/15" />
+                  </div>
                   </div>
                 </div>
               </div>

@@ -14,19 +14,19 @@ const tabOptions = [
 ];
 
 const topBrands = [
-  { name: "Apple", tagline: "No-cost EMIs upto 18 months", logo: "/brands/apple.png" },
-  { name: "Samsung", tagline: "No-cost EMIs upto 24 months", logo: "/brands/samsung.png" },
-  { name: "Amazon", tagline: "No-cost EMIs upto 12 months", logo: "/brands/amazon.png" },
-  { name: "Flipkart", tagline: "No-cost EMIs upto 12 months", logo: "/brands/flipkart.png" },
-  { name: "Myntra", tagline: "No-cost EMIs upto 9 months", logo: "/brands/myntra.png" },
-  { name: "MakeMyTrip", tagline: "No-cost EMIs upto 12 months", logo: "/brands/makemytrip.png" },
-  { name: "Air India", tagline: "No-cost EMIs upto 12 months", logo: "/brands/airindia.png" },
-  { name: "Croma", tagline: "No-cost EMIs upto 15 months", logo: "/brands/croma.png" },
-  { name: "Paytm", tagline: "No-cost EMIs upto 6 months", logo: "/brands/paytm.png" },
-  { name: "Google", tagline: "No-cost EMIs upto 12 months", logo: "/brands/google.png" },
-  { name: "OnePlus", tagline: "No-cost EMIs upto 12 months", logo: "/brands/oneplus.png" },
-  { name: "Nykaa", tagline: "Beauty & lifestyle EMIs", logo: "/brands/nykaa.png" },
-  { name: "Nike", tagline: "Lifestyle & gear EMIs", logo: "/brands/nike.png" },
+  { name: "Apple", tagline: "No-cost EMIs upto 18 months", logo: "/brands/apple.svg" },
+  { name: "Samsung", tagline: "No-cost EMIs upto 24 months", logo: "/brands/samsung.svg" },
+  { name: "Amazon", tagline: "No-cost EMIs upto 12 months", logo: "/brands/amazon.svg" },
+  { name: "Flipkart", tagline: "No-cost EMIs upto 12 months", logo: "/brands/flipkart.svg" },
+  { name: "Myntra", tagline: "No-cost EMIs upto 9 months", logo: "/brands/myntra.svg" },
+  { name: "MakeMyTrip", tagline: "No-cost EMIs upto 12 months", logo: "/brands/makemytrip.svg" },
+  { name: "Air India", tagline: "No-cost EMIs upto 12 months", logo: "/brands/airindia.svg" },
+  { name: "Croma", tagline: "No-cost EMIs upto 15 months", logo: "/brands/croma.svg" },
+  { name: "Paytm", tagline: "No-cost EMIs upto 6 months", logo: "/brands/paytm.svg" },
+  { name: "Google", tagline: "No-cost EMIs upto 12 months", logo: "/brands/google.svg" },
+  { name: "OnePlus", tagline: "No-cost EMIs upto 12 months", logo: "/brands/oneplus.svg" },
+  { name: "Nykaa", tagline: "Beauty & lifestyle EMIs", logo: "/brands/nykaa.svg" },
+  { name: "Nike", tagline: "Lifestyle & gear EMIs", logo: "/brands/nike.svg" },
 ];
 
 export default function ShopPage() {
@@ -122,7 +122,7 @@ function ShopPageContent() {
 
   return (
     <main className="space-y-5 px-4 pb-36 pt-4">
-      <section className="relative overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#4C1D95_0%,#6D28D9_50%,#7C3AED_100%)] p-6">
+      <section className="relative min-h-[290px] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#4C1D95_0%,#6D28D9_50%,#7C3AED_100%)] p-6">
         <div className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-white">
           <Sparkles className="h-3.5 w-3.5" />
           NO-COST EMIs
@@ -136,12 +136,8 @@ function ShopPageContent() {
           No credit score required. No interest. Backed by your investments.
         </p>
 
-        <div className="absolute bottom-0 right-3 flex items-end gap-2">
-          <div className="h-16 w-16 rounded-t-[18px] bg-white/10" />
-          <div className="h-14 w-14 rounded-t-[18px] bg-white/10" />
-          <div className="h-16 w-12 rounded-full bg-white/10" />
-          <div className="h-20 w-14 rounded-[20px] bg-white/10" />
-        </div>
+        <img src="/images/macbook-air-m4-midnight.jpg" alt="MacBook Air" className="absolute -bottom-5 right-[-52px] h-44 w-64 rotate-[-10deg] rounded-2xl object-cover shadow-2xl" />
+        <img src="/images/iphone-17-pro-blue.jpg" alt="iPhone" className="absolute bottom-2 right-[88px] h-32 w-20 rotate-[15deg] rounded-2xl object-cover object-top shadow-xl" />
       </section>
 
       <SegmentedControl value={tab} options={tabOptions} onChange={handleTabChange} />
@@ -164,7 +160,7 @@ function ShopPageContent() {
           <div className="space-y-3">
             {filteredBrands.map((brand) => (
               <div key={brand.name} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
                   <img
                     src={brand.logo}
                     alt={brand.name}

@@ -33,7 +33,7 @@ export default function ProfilePage() {
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-light text-[20px] font-bold text-primary">U</div>
         <div>
           <div className="text-[16px] font-bold text-text-primary">User</div>
-          <div className="text-[13px] text-text-secondary">+91 8742619053</div>
+          <div className="text-[13px] text-text-secondary">+91 9935663381</div>
         </div>
       </div>
 
