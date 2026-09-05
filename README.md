@@ -4,6 +4,10 @@
 no-cost EMI plans. It includes the core 1Fi screens plus a Prisma-backed
 marketplace catalog and purchase flow.
 
+## Live deployment
+
+Visit the deployed application at [1Fi Marketplace](https://1-fi-mu.vercel.app).
+
 ## Features
 
 - Home dashboard with offers, benefits, FAQs, and partner brands
