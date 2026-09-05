@@ -1,46 +1,120 @@
 # 1Fi
 
-A mobile-first fintech web app built with Next.js 16, TypeScript, Tailwind CSS, and SQLite via Prisma.
+1Fi is a mobile-first fintech experience for shopping with mutual-fund-backed,
+no-cost EMI plans. It includes the core 1Fi screens plus a Prisma-backed
+marketplace catalog and purchase flow.
+
+## Features
+
+- Home dashboard with offers, benefits, FAQs, and partner brands
+- Shop tabs for top brands, nearby stores, and **1Fi Marketplace**
+- Dynamic product catalog loaded from `/api/products`
+- Product detail pages with:
+  - Real local product photography
+  - Color and storage selection
+  - Color-specific image switching
+  - EMI plan selection
+- Confirmation flow that validates the selected product and EMI plan through the API
+- EMI dues, eligibility/limit, and profile screens
+- Responsive mobile-first layout with shared bottom navigation
+- Loading, empty, retry, invalid-link, and API error states
 
 ## Tech stack
 
 - Next.js 16 App Router
-- TypeScript
+- React 19 and TypeScript
 - Tailwind CSS
 - Prisma ORM
-- SQLite database
-- Lucide React icons
+- SQLite
+- Lucide React
+
+## Project structure
+
+```text
+app/
+  api/products/                 Product catalog APIs
+  marketplace/products/[slug]/ Product detail and confirmation flow
+  shop/                         Brand and marketplace browsing
+  page.tsx                      Home screen
+components/                     Shared UI components
+lib/prisma.ts                   Prisma client singleton
+prisma/schema.prisma            Product, variant, and EMI models
+prisma/seed.ts                  Marketplace seed data
+public/brands/                  Local brand logo assets
+public/images/                  Local product and variant photography
+```
+
+## Requirements
+
+- Node.js 20 or newer
+- npm
 
 ## Local setup
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
-2. Generate Prisma client and initialize SQLite:
+
+2. Create or update `.env` with a SQLite database URL:
+
+   ```env
+   DATABASE_URL="file:./dev.db"
+   ```
+
+3. Generate the Prisma client:
+
    ```bash
    npx prisma generate
+   ```
+
+4. Create/update the local database:
+
+   ```bash
    npx prisma db push
    ```
-3. Seed the marketplace catalog:
+
+5. Seed the six-product marketplace catalog:
+
    ```bash
    npx tsx prisma/seed.ts
    ```
-4. Start the app:
+
+6. Start the development server:
+
    ```bash
-   npm run dev -- --hostname 0.0.0.0
+   npm run dev
    ```
-5. Open `http://localhost:3000`
 
-## API docs
+7. Open [http://localhost:3000](http://localhost:3000).
 
-### GET /api/products
+The local SQLite database is intentionally ignored by Git. Run the database
+setup and seed commands again after cloning the repository.
+
+## Available scripts
+
+```bash
+npm run dev      # Start the development server
+npm run build    # Create a production build
+npm run start    # Start the production server
+npm run lint     # Run ESLint
+```
+
+## API reference
+
+### `GET /api/products`
+
+Returns catalog cards with product pricing, the default local thumbnail,
+variant summary, and the lowest available monthly EMI amount.
+
+Example:
 
 ```json
 {
   "products": [
     {
-      "id": "iphone-17-pro",
+      "id": "product-id",
       "slug": "iphone-17-pro",
       "name": "iPhone 17 Pro",
       "isNew": true,
@@ -54,11 +128,13 @@ A mobile-first fintech web app built with Next.js 16, TypeScript, Tailwind CSS, 
 }
 ```
 
-### GET /api/products/:slug
+### `GET /api/products/:slug`
+
+Returns a complete product with variant image mappings and EMI plans.
 
 ```json
 {
-  "id": "iphone-17-pro",
+  "id": "product-id",
   "slug": "iphone-17-pro",
   "name": "iPhone 17 Pro",
   "isNew": true,
@@ -68,78 +144,57 @@ A mobile-first fintech web app built with Next.js 16, TypeScript, Tailwind CSS, 
     "byVariant": {
       "orange": "/images/iphone-17-pro-orange.jpg",
       "silver": "/images/iphone-17-pro-silver.jpg",
-      "blue": "/images/iphone-17-pro-blue.jpg"
+      "deep-blue": "/images/iphone-17-pro-blue.jpg"
     }
   },
   "mrp": 134900,
   "price": 127400,
-  "variants": [
-    { "id": "v1", "type": "color", "label": "Orange", "swatchHex": "#D9622B", "extraPrice": 0 },
-    { "id": "v2", "type": "color", "label": "Silver", "swatchHex": "#E5E7EB", "extraPrice": 0 },
-    { "id": "v3", "type": "color", "label": "Deep Blue", "swatchHex": "#1E3A8A", "extraPrice": 0 },
-    { "id": "v4", "type": "storage", "label": "256GB", "swatchHex": null, "extraPrice": 0 },
-    { "id": "v5", "type": "storage", "label": "512GB", "swatchHex": null, "extraPrice": 15000 }
-  ],
-  "emiPlans": [
-    { "id": "p1", "tenureMonths": 3,  "monthlyAmount": 44967, "interestRate": 0,    "cashbackAmount": 7500, "isZeroCost": true },
-    { "id": "p2", "tenureMonths": 6,  "monthlyAmount": 22483, "interestRate": 0,    "cashbackAmount": 7500, "isZeroCost": true },
-    { "id": "p3", "tenureMonths": 12, "monthlyAmount": 11242, "interestRate": 0,    "cashbackAmount": 7500, "isZeroCost": true },
-    { "id": "p4", "tenureMonths": 24, "monthlyAmount": 5621,  "interestRate": 0,    "cashbackAmount": 7500, "isZeroCost": true },
-    { "id": "p5", "tenureMonths": 36, "monthlyAmount": 4297,  "interestRate": 10.5, "cashbackAmount": 7500, "isZeroCost": false },
-    { "id": "p6", "tenureMonths": 48, "monthlyAmount": 3385,  "interestRate": 10.5, "cashbackAmount": 7500, "isZeroCost": false },
-    { "id": "p7", "tenureMonths": 60, "monthlyAmount": 2842,  "interestRate": 10.5, "cashbackAmount": 7500, "isZeroCost": false }
-  ]
+  "variants": [],
+  "emiPlans": []
 }
 ```
 
-Unknown slug responses return `404 { "error": "Product not found" }` and unexpected failures return `500 { "error": "Something went wrong" }`.
+Unknown product slugs return `404`. Unexpected server failures return `500`.
 
-## Prisma schema
+## Marketplace data model
 
-```prisma
-generator client {
-  provider = "prisma-client-js"
-}
+The marketplace is backed by three Prisma models:
 
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
+- `Product`: name, category, pricing, thumbnail, and description
+- `ProductVariant`: color/storage options, swatches, image paths, and price adjustments
+- `EmiPlan`: tenure, monthly amount, interest rate, cashback, and zero-cost status
 
-model Product {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  category    String
-  isNew       Boolean  @default(false)
-  description String?
-  mrp         Int
-  price       Int
-  thumbnail   String
-  createdAt   DateTime @default(now())
-  variants    ProductVariant[]
-  emiPlans    EmiPlan[]
-}
+Product and EMI data is seeded in [`prisma/seed.ts`](./prisma/seed.ts), not
+hardcoded in the marketplace UI. Product detail and confirmation screens read
+their data from the API.
 
-model ProductVariant {
-  id         String  @id @default(cuid())
-  productId  String
-  product    Product @relation(fields: [productId], references: [id])
-  type       String
-  label      String
-  swatchHex  String?
-  imageUrl   String?
-  extraPrice Int     @default(0)
-}
+## Asset handling
 
-model EmiPlan {
-  id             String  @id @default(cuid())
-  productId      String
-  product        Product @relation(fields: [productId], references: [id])
-  tenureMonths   Int
-  monthlyAmount  Int
-  interestRate   Float
-  cashbackAmount Int     @default(0)
-  isZeroCost     Boolean @default(false)
-}
+All critical logos and product images are stored locally under `public/`.
+This avoids runtime failures from remote image providers and makes the
+marketplace usable in restricted or offline development environments.
+
+When adding a product:
+
+1. Add its image files to `public/images/`.
+2. Add variant-specific paths to `prisma/seed.ts`.
+3. Run `npx tsx prisma/seed.ts`.
+4. Confirm the API returns valid local paths.
+
+## Validation
+
+Run the production build and lint checks before publishing changes:
+
+```bash
+npm run build
+npm run lint
 ```
+
+## Notes
+
+- This is a frontend/product prototype; payment processing, authentication,
+  eligibility underwriting, and order fulfillment are not connected to live
+  financial services.
+- EMI and cashback values are seeded demonstration data.
+- The local SQLite database is generated during setup and should not be
+  committed.
