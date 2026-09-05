@@ -149,7 +149,8 @@ export default function ProductDetailPage() {
           <div className="mt-4">
             <VariantSelector
               variants={product.variants}
-              selected={selectedColorId ?? selectedStorageId}
+              selectedColor={selectedColorId}
+              selectedStorage={selectedStorageId}
               onSelect={(id) => {
                 const v = product.variants.find((variant) => variant.id === id);
                 if (!v) return;

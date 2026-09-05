@@ -8,11 +8,12 @@ type Variant = {
 
 type VariantSelectorProps = {
   variants: Variant[];
-  selected: string | null;
+  selectedColor: string | null;
+  selectedStorage: string | null;
   onSelect: (variantId: string) => void;
 };
 
-export function VariantSelector({ variants, selected, onSelect }: VariantSelectorProps) {
+export function VariantSelector({ variants, selectedColor, selectedStorage, onSelect }: VariantSelectorProps) {
   const colorVariants = variants.filter((v) => v.type === "color" || v.type === "finish");
   const storageVariants = variants.filter((v) => v.type === "storage");
 
@@ -23,7 +24,7 @@ export function VariantSelector({ variants, selected, onSelect }: VariantSelecto
           <div className="mb-2 text-[12px] font-medium uppercase tracking-[0.1em] text-text-secondary">Color</div>
           <div className="flex flex-wrap gap-3">
             {colorVariants.map((variant) => {
-              const isSelected = selected === variant.id;
+              const isSelected = selectedColor === variant.id;
               return (
                 <button
                   key={variant.id}
@@ -45,12 +46,13 @@ export function VariantSelector({ variants, selected, onSelect }: VariantSelecto
           <div className="mb-2 text-[12px] font-medium uppercase tracking-[0.1em] text-text-secondary">Storage</div>
           <div className="flex flex-wrap gap-2">
             {storageVariants.map((variant) => {
-              const isSelected = selected === variant.id;
+              const isSelected = selectedStorage === variant.id;
               return (
                 <button
                   key={variant.id}
                   type="button"
                   onClick={() => onSelect(variant.id)}
+                  aria-pressed={isSelected}
                   className={`rounded-full px-3 py-2 text-[13px] font-medium ${
                     isSelected ? "bg-primary text-white" : "border border-border-subtle bg-white text-text-secondary"
                   }`}
